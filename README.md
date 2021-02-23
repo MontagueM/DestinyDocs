@@ -38,16 +38,21 @@ It is then important to introduce endianness. Endianness is simply the order tha
 There is also another endian format - "little endian". This means reading the columns in reverse order, so instead of reading "50 00" as 0x5000, we instead read it as 0x0050. All of Destiny 1 from ROI and Destiny 2 uses this format, so it is very important to understand. I even get it wrong sometimes, so making mistakes with this is very common as day-to-day we always read "big endian".
 
 Endianness also changes with the length of the hex string. Below are some examples of little endianness:
-* "50" -> 0x50
-* "12 A6" -> 0xA612
-* "00 51 05" -> 0x055100
-* "95 AF FF FE" -> 0xFEFFAF95
+| String      | Hex |
+| ----------- | ----------- |
+| "50" | 0x50 |
+| "12 A6" | 0xA612 |
+| "00 51 05" | 0x055100 |
+| "95 AF FF FE" | 0xFEFFAF95 |
 
 Naturally, we also hide the leading zeros of a number so that 00032 becomes 32 in decimal. This also applies to hex, but can make it more complicated when working with endianness:
-* "50 00" -> 0x50
-* "50 00 00 00" -> 0x50
-* "00 00 50 00" -> 0x50000
-* "00 05 00 00" -> 0x500
+| String      | Hex |
+| ----------- | ----------- |
+| "50 00" | 0x50 |
+| "50 00 00 00" | 0x50 |
+| "00 00 50 00" | 0x50000 |
+| "00 05 00 00" | 0x500 |
+
 
 This means it is important to know how long your number is meant to be, as it can change the final result quite easily. This introduces of the first difficulties of reverse engineering, which is identifying how long each meaningful number is meant to be. This will be covered later, but it relates to storage efficiency - why store every number as a 32 bit number when it only holds a few bits?
 
