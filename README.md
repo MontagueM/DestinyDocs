@@ -1,18 +1,27 @@
 # Static Destiny Datamining Documentation
 A documentation repo for understanding the basics of static Destiny 2 datamining.
 
-## What this is for:
+You're free to skip any bits you think are unnecessary. This documentation presumes you are a capable programmer, up to object-oriented programming. The code provided will be in Python for ease of understanding.
+
+### What this is for:
 * Introducing static techniques
 * Providing a basic understanding of reading binary in hex form
 * An intro to how the Tiger engine for Destiny uses binary to store data (headers, terminators, file references)
 * Some basic examples of analysing classes and table structures
 
-## What this is not for:
+### What this is not for:
 * Dynamic reverse engineering, including debugging (against Bungie ToS)
 * A library for existing Destiny datamining classes
 * Finding or grouping files
 
-You're free to skip any bits you think are unnecessary. This documentation presumes you are a capable programmer, up to object-oriented programming. The code provided will be in Python for ease of understanding.
+If anyone asks you to or provides a tutorial on how to do any of the following with regards to Destiny *in any way*:
+* Memory/RAM access
+* Debugging (even having one open while Destiny is running)
+* Network manipulation (including Wireshark, NetLimiter)
+* Virtual Machines (VM)
+* VPN
+
+**do not** follow through with it. It will likely get your account banned permanently with zero way to revert. This is dynamic reverse engineering and is against Bungie ToS. Also do not trust datamining closed-source executables as there is no guarantee this is safe.
 
 ## Reading binary in hex format
 Before even working with decompiled Destiny binary files, it is important to understand how to read binary files. Without this, understanding and parsing any of the decompiled files from Destiny will be very difficult.
