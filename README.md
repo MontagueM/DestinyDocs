@@ -4,15 +4,21 @@ A documentation repo for understanding the basics of static Destiny 2 datamining
 You're free to skip any bits you think are unnecessary. This documentation presumes you are a capable programmer, up to object-oriented programming. The code provided will be in Python for ease of understanding.
 
 ### What this is for:
-* Introducing static techniques
-* Providing a basic understanding of reading binary in hex form
-* An intro to how the Tiger engine for Destiny uses binary to store data (headers, terminators, file references)
-* Some basic examples of analysing classes and table structures
+:white_check_mark: Introducing static techniques
+ 
+:white_check_mark: Providing a basic understanding of reading binary in hex form
+
+:white_check_mark: An intro to how the Tiger engine for Destiny uses binary to store data (headers, terminators, file references)
+
+:white_check_mark: Some basic examples of analysing classes and table structures
 
 ### What this is not for:
-* Dynamic reverse engineering, including debugging (against Bungie ToS)
-* A library for existing Destiny datamining classes
-* Finding or grouping files
+:x: Dynamic reverse engineering, including debugging (against Bungie ToS)
+
+:x: A library for existing Destiny datamining classes
+
+:x: Finding or grouping files
+
 
 If anyone asks you to or provides a tutorial on how to do any of the following with regards to Destiny *in any way*:
 * Memory/RAM access
