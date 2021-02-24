@@ -27,15 +27,15 @@ We can then look at what a binary file might look like. The below image will tur
 
 *Figure 1:*
 
-!["HxD Texture Header in hexadecimal"](https://i.imgur.com/8G5gGHa.png "HxD Texture Header in hexadecimal")
+!["HxD Texture Header in hexadecimal"](https://i.imgur.com/pJgy3rd.png "HxD Texture Header in hexadecimal")
 
 This is a binary file, represented using hexadecimal. The width used is 16 bytes, helpfully separated into each byte.
 
 ### **Endianness**
 
-It is then important to introduce endianness. Endianness is simply the order that the bytes should be read. In most languages, numbers are written right to left, so that leading zeros that don't matter are on the left: for example 000040 = 40. In hexadecimal, this is called "big endian". We can read the first 2 bytes in the image as 0x5000 this way - which represents the number 20,480.
+It is then important to introduce endianness. Endianness is simply the order that the bytes should be read. In most languages, numbers are written right to left, so that leading zeros that don't matter are on the left: for example 000040 = 40. In hexadecimal, this is called "big endian". We can read the first 2 bytes in the image as 0xA000 this way - which represents the number 40,960.
 
-There is also another endian format - "little endian". This means reading the columns in reverse order, so instead of reading "50 00" as 0x5000, we instead read it as 0x0050. All of Destiny 1 from ROI and Destiny 2 uses this format, so it is very important to understand. I even get it wrong sometimes, so making mistakes with this is very common as day-to-day we always read "big endian".
+There is also another endian format - "little endian". This means reading the columns in reverse order, so instead of reading "A0 00" as 0xA000, we instead read it as 0x00A0. All of Destiny 1 from ROI and Destiny 2 uses this format, so it is very important to understand. I even get it wrong sometimes, so making mistakes with this is very common as day-to-day we always read "big endian".
 
 Endianness also changes with the length of the hex string. Below are some examples of little endianness:
 | String      | Hex |
@@ -58,16 +58,40 @@ This means it is important to know how long your number is meant to be, as it ca
 
 ## How the Tiger engine uses binary to store data
 
+From here on I will be using three files in the Resources/ directory: header.bin, data.bin, and classes.bin. These files are directly from the game and will be useful in explaining by example. To open and view these files I recommend the program [HxD](https://mh-nexus.de/en/hxd/).
+
 ### Packages
 The Tiger engine, like many other video game engines, stores its data in a binary format like in figure 1. The game stores all of this data in package files, which are found in the Destiny 2 directory and named like "w64_investment_globals_client_0173_2.pkg". The majority of these packages are encrypted and compressed for security and speed respectively.
 
 These packages can be read in the same way the Destiny 2 game will read them to extract the actual data within, which requires understanding everything in the pkg files. I have a working decompiler [here](https://github.com/MontagueM/DestinyUnpacker) which is a good stepping stone from this document to a real example of reverse engineering.
 
 ### Headers
+We'll use header.bin and data.bin here, so open both of these files in HxD as shown: ![](https://i.imgur.com/DZgDJB9.png). HxD is useful as you can click on the "Offset (h)" text and it will change between hex and decimal, making it easy to do mental maths at times. The first file we'll look at is the header file, which means it provides a group of important information about a group of data or a table. A header can be separated from its data, like in this case, or it can be attached to the beginning of a file. We'll see an example of this in *Classes and 8080, my favourite number*. 
 
-### Classes and 8080, my favourite number
+When reverse engineering game files, you usually have very little information about what a file is or does. When looking at this header.bin, it probably looks like a mess of random hex. However, if we know this is a header for texture data, we know a bit more information already. For example, we know at a minimum the header must contain this data:
+* Texture Height
+* Texture Width
+* Reference to the texture data
+
+With a bit more research into textures, it's also possible it stores:
+* File type (compression type? PNG? JPG?)
+* Mipmaps
+* Array size for cubemaps
+
+So we can try looking for this data in here. We can presume that a lot of textures will hold a texture of width or height as 2^n, such as 256, 1024, or 2048 bytes long. We can also presume the value will be unsigned, as height and width cannot be negative. However, we cannot presume the length of these numbers - it's possible it uses uint16 to have a maximum height or width or 65,535 which is a safe assumption, but we can't presume it.
+
+If we look at the offset 0x22 (click/highlight parts of the .bin and look at the bottom left for an offset), we can see that the value on right gives a uint16 as 256 - a power of two, which is a good sign. The number next to it, 0x24 is also uint16 256. This is probably our height and width. Realistically, you would check multiple files of the same type to check if you're idea is correct, but here I can confirm this is correct. So here we can say we know that:
+
+| Offset      | Desc |
+| ----------- | ----------- |
+| 0x22 | Texture Width/Height |
+| 0x24 | Texture Width/Height |
+
+we can't say for sure if one or the other is width or height, so this would have to be checked in a few other ways (e.g. extracting it and testing, or finding a 1920x1080 image which will always be width x height).
 
 ### Referencing
+
+### Classes and 8080, my favourite number
 
 ### The Unknown
 
