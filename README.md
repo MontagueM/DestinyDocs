@@ -127,6 +127,7 @@ The most useful part is the English string. Most of them are quite obvious, but 
 | Term      | Desc |
 | ----------- | ----------- |
 | investment | table data that is relevant to the API manifest - whether it be strings, inventory items, perks, images |
+| sr_gear | more recent player equippables/gear (ships, armour, weapons, ghosts) |
 | client_startup |  mostly covers UI information and images |
 | planet_x | nessus |
 | luna | moon |
