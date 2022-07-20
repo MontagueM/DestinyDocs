@@ -23,7 +23,7 @@ Charm should be built as a console application x64 as this allows logging of unh
 
 ## How Charm works
 
-Charms works by treating each game file as a Tag with a header and tables/resources that attach to that header. This is not quite game-accurate, but it makes parsing the files very simple (for more info see [here](../Destiny-Engine/Engine-overview)). Each new file is labelled as a Tag with a specified header type. This header is counted as a resource. Resources can point to other resources, and can point to lists of resources. Each resource has a type or "class" which dictates what information is stored inside of it. [Here's an example](https://github.com/MontagueM/Charm/blob/d99369a49a9a7cc9ed1b300b60666209ff780c6a/Field/General/Activity.cs#L22) of a header for a string container: 
+Charms works by treating each game file as a Tag with a header and tables/resources that attach to that header. This is not quite game-accurate, but it makes parsing the files very simple (for more info see [here](../Destiny-Engine/Engine-overview.md)). Each new file is labelled as a Tag with a specified header type. This header is counted as a resource. Resources can point to other resources, and can point to lists of resources. Each resource has a type or "class" which dictates what information is stored inside of it. [Here's an example](https://github.com/MontagueM/Charm/blob/d99369a49a9a7cc9ed1b300b60666209ff780c6a/Field/General/Activity.cs#L22) of a header for a string container: 
 ```
 [StructLayout(LayoutKind.Sequential, Size = 0x78)]
 public struct D2Class_8E8E8080
@@ -63,7 +63,7 @@ Charm uses a custom `struct` parser that reads the custom attributes and the typ
 * To parse a list of resources, use `List<D2Class_xxxx8080>` and use the `DestinyField(FieldType.TablePointer)` custom attribute.
 * To recursively parse a tag, use `Tag<D2Class_xxxx8080>` or a class that inherits from `Tag` with an `override void ParseStructs`.
   * If the hash for the tag is 32 bit, use the `DestinyField(FieldType.TagHash)` custom attribute.
-  * If [64 bit](../Destiny-Engine/Engine-overview), use the `DestinyField(FieldType.TagHash64)` custom attribute.
+  * If [64 bit](../Destiny-Engine/Engine-overview.md), use the `DestinyField(FieldType.TagHash64)` custom attribute.
 * To load a tag but not parse it recursively: set the type as `Tag` with the custom attribute, or set type as `TagHash`, or use the `DestinyField(FieldType.TagHash64, true)]` custom attribute where `true` sets the `disableLoad` flag.
 * To skip a region of the structure (eg if unknowns, empty, or for efficiency) use the 'DestinyOffset(0x??)' custom attribute where `??` is the offset to skip to within the structure.
 * To identify a resource pointer (a relative address that jumps in front of a class hash), set the type as `dynamic?` and use the `[DestinyField(FieldType.ResourcePointer)]` custom attribute.

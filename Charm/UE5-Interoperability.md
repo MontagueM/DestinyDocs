@@ -30,4 +30,4 @@ Lots of things, but two things in particular.
 The first is the use of HLODs instead of static meshes - they're an optimisation technique in UE5 that allows for instancing of models. This could massively increase performance including with nanite in use.
 The second is fixing the inaccuracies of the shader conversion. The HLSL -> USF decompilation and conversion is not perfect and introduces many assumptions. The most prominent of these is the `Normals` of the shader, which are very often incorrect. This is due to the game rendering out the world normal, where as unreal wants the texture normal among other issues. This might require the vertex shader for correct data to be provided.
 
-You can help to fix these by [contributing to Charm](Development).
+You can help to fix these by [contributing to Charm](Development.md).
