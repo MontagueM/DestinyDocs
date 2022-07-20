@@ -10,4 +10,4 @@ You can skip everything about the engine. Best place to start is to look at the 
 
 ### I want to learn how Destiny 2 files works from the ground up
 
-You'll want the [Destiny Engine](Destiny-Engine/Engine-overview.md) page.
+You'll want the [Destiny Engine](../Destiny-Engine/Engine-overview.md) page.
