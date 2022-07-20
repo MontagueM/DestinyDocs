@@ -1,3 +1,4 @@
+# Charm: Home
 This wiki hosts the documentation for Charm as well as my documentation for the Destiny 2 game files.
 
 ### I want to learn how to use Unreal Engine 5 with Charm
